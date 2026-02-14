@@ -25,3 +25,6 @@ Content-Type: application/json
     "author":"C",
     "description":"A."
 }
+
+###
+DELETE {{base_address}}/8
