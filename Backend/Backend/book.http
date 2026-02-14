@@ -1,0 +1,27 @@
+@base_address = http://localhost:3000/api/book
+
+POST {{base_address}}
+Content-Type: application/json
+
+{
+    "title":"Applications",
+    "author":"Carter",
+    "description":"A practical guide to building scalable and maintainable web applications using modern backend technologies. Covers system design principles, database optimization, API architecture, and cloud deployment strategies."
+}
+
+###
+GET {{base_address}}
+
+###
+GET {{base_address}}/1
+
+###
+PUT {{base_address}}/3
+Content-Type: application/json
+
+{
+    "bookId":3,
+    "title":"As",
+    "author":"C",
+    "description":"A."
+}
