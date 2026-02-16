@@ -37,7 +37,7 @@ const BookList = ({ bookList, onBookEdit, onBookDelete }) => {
                             <td className="px-6 py-4 text-sm font-medium text-gray-900">
                                 {book.author}
                             </td>
-<td className="px-6 py-4 text-sm font-medium text-gray-900">
+                            <td className="px-6 py-4 text-sm font-medium text-gray-900">
                                 {book.description}
                             </td>
 

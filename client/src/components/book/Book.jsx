@@ -1,19 +1,34 @@
 import { useEffect, useState } from "react";
 import BookForm from "./BookForm"
 import BookList from "./BookList"
-import { useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form'
 import toast from "react-hot-toast";
+import axios from "axios";
 
 function Book() {
+    const BASE_URL = import.meta.env.VITE_BASE_API_URL;
     
-    const [book, setBook] = useState([
-        {id:1, title:'The Hidden Path',author:'Udari Silva', description:'A curious girl follows strange whispers coming from the woods near her home. What she discovers changes her life forever and teaches her the power of courage and curiosity.'},
-        {id:2, title:'Code Beyond Limits',author:'Udari Silva', description:'When a small village faces an unknown danger, one brave teenager climbs the forbidden mountain to uncover the truth hidden at its peak.'},
-        {id:3, title:'Midnight Library Secret',author:'Udari Silva', description:'Every night at midnight, a hidden door opens inside the old town library. Only one person notices — and her discovery leads to a world of forgotten stories.'},
-        {id:4, title:'Dreams Under the City Lights',author:'Udari Silva', description:'A university student balances studies, ambition, and life in a busy city while chasing her dream career. A story about growth, independence, and self-discovery.'}
-    ]) 
-
+    const [book, setBook] = useState([]); 
+    
+    const [loading, setLoading] = useState(true);
     const [editData, setEditData] = useState(null);
+
+    useEffect(() => {
+        try {
+            const LoadBook = async() => {
+                var bookData = (await axios.get(BASE_URL)).data;
+                setBook(bookData);
+            }
+            LoadBook();
+
+        } catch (error) {
+            console.log(error);
+            toast.error("Error has occured!");
+        }        
+        finally{
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
         methods.reset(editData);
@@ -29,7 +44,8 @@ function Book() {
         defaultValues: defaultFormValues
     });
 
-    const handleFormSubmit=(book)=> {
+    const handleFormSubmit= async (book)=> {
+        setLoading(true);
         try {
             if(book.id <= 0){
                 console.log("add");
@@ -41,7 +57,11 @@ function Book() {
             methods.reset(defaultFormValues);
             toast.success("Saved Successfully!");
         } catch (error) {
+            console.log(error);
             toast.error("Error has occured!");
+        }
+        finally{
+
         }
     }
 
@@ -57,6 +77,7 @@ function Book() {
         if(!confirm(`Are you sure to delete a book : ${book.title} ${book.author} ${book.description}`)) return;
 
         try {
+            
             setBook((previousBook) => previousBook.filter(p => p.id !== book.id));
             toast.success("Deleted Successfully!");
         } catch (error) {
