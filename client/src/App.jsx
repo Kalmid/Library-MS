@@ -1,9 +1,25 @@
+import Navbar from "./components/Navbar"
+import Home from "./pages/Home"
+import About from "./pages/About"
+import Book from "./components/book/Book"
+import NotFound from "./pages/NotFound"
+import { Routes, Route } from "react-router";
+import { Toaster } from "react-hot-toast";
+
 const App = () => {
 
   return (
     <>
-      <h1>Hello</h1>
-      <p>Hello again</p>
+      <Navbar/>
+
+      <Routes>
+        <Route index element={<Home/>}/>
+        <Route path="about" element={<About/>} />
+        <Route path="book" element={<Book/>} />
+        <Route path="*" element={<NotFound/>} />
+      </Routes>
+
+      <Toaster />
     </>
   )
 }
