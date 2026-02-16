@@ -9,11 +9,6 @@ namespace Backend.Controllers;
     [ApiController]
     public class BookController : ControllerBase
     {
-          // POST /api/book {body}
-          // GET  /api/book
-          // GET  /api/book/2
-          // PUT  /api/book/2 {book}
-          // DELETE  /api/book/2
         private readonly AppDbContext _context;
 
         public BookController(AppDbContext context)
